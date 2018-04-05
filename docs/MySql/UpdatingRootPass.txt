@@ -1,0 +1,28 @@
+1. Stop the MySQL service.
+
+    service mysql stop
+2. Start MySQL without password and permission checks.
+
+   mysqld_safe --skip-grant-tables &
+3. Press [ENTER] again if your output is halted.
+
+4. Connect to MySQL.
+
+    mysql -u root mysql
+
+5. Run following commands to set a new password for root user. Substitute NEW_PASSWORD with your new password.
+
+    UPDATE mysql.user
+    SET authentication_string = PASSWORD('MyNewPass'), password_expired = 'N'
+    WHERE User = 'root' AND Host = 'localhost';
+    FLUSH PRIVILEGES;
+
+6. Restart the MySQL service.
+
+    service mysql restart
+
+Note: Error While starting mysql server 5.7.17 using mysqld_safe:
+Sol: 
+mkdir -p /var/run/mysqld
+chown mysql:mysql /var/run/mysqld
+
